@@ -342,21 +342,21 @@ if __name__ == "__main__" :
     import sys, traceback
     
     def printScore(score) :
-        print score.category
-        print 'Bonus:          ', score.categoryBonus
-        print 'Three of a kind:', score.threeOfAKind
-        print 'Four of a kind: ', score.fourOfAKind
-        print 'Full House:     ', score.fullHouse
-        print 'Small Straight: ', score.smallStraight
-        print 'Large Straight: ', score.largeStraight
-        print 'Chance:         ', score.chance
-        print 'Yatesee:        ', score.yatesee
-        print 'Total:          ', score.total
+        print(score.category)
+        print('Bonus:          ', score.categoryBonus)
+        print('Three of a kind:', score.threeOfAKind)
+        print('Four of a kind: ', score.fourOfAKind)
+        print('Full House:     ', score.fullHouse)
+        print('Small Straight: ', score.smallStraight)
+        print('Large Straight: ', score.largeStraight)
+        print('Chance:         ', score.chance)
+        print('Yatesee:        ', score.yatesee)
+        print('Total:          ', score.total)
 
-    print "Yatesee!  Let's roll!"
-    print
-    print "Type '?' for help"
-    print
+    print("Yatesee!  Let's roll!")
+    print()
+    print("Type '?' for help")
+    print()
     game = Yatesee()
     
     while not game.isGameOver() :
@@ -364,33 +364,33 @@ if __name__ == "__main__" :
             if game.roll == 0 :
                 printScore(game.score)
             else :
-                print
-                print "Roll: ", game.roll, game.dice      
+                print()
+                print("Roll: ", game.roll, game.dice)
             
             
-            command = raw_input("Enter Yatesee Command: ")
+            command = hinput("Enter Yatesee Command: ")
             
             command = command.lower()
             
             if command == 'help' or command == '?' :
-                print "Yatesee Commands:"
-                print '?          Help'
-                print 'r          Roll all the dice'
-                print 'r[1-5]...  Roll holding one or more dice'
-                print '1-6        Score Category 1-6'
-                print 't          Score three of a kind'
-                print 'f          Score four of a kind'
-                print 'h          Score full house'
-                print 's          Score small straight'
-                print 'l          Score large straight'
-                print 'c          Score chance'
-                print 'y          Score Yatesee'
-                print 'q          Quit'
+                print("Yatesee Commands:")
+                print('?          Help')
+                print('r          Roll all the dice')
+                print('r[1-5]...  Roll holding one or more dice')
+                print('1-6        Score Category 1-6')
+                print('t          Score three of a kind')
+                print('f          Score four of a kind')
+                print('h          Score full house')
+                print('s          Score small straight')
+                print('l          Score large straight')
+                print('c          Score chance')
+                print('y          Score Yatesee')
+                print('q          Quit')
                 continue
                 
             elif command == 'q' or command == 'quit' :
                 print
-                print 'Quiter'
+                print('Quiter')
                 print
                 quit()
                 
@@ -399,9 +399,9 @@ if __name__ == "__main__" :
 
             elif command[0] == 'r' :
                 if game.roll == 0 :
-                    print
-                    print 'ERROR: You must roll all the dice.'
-                    print
+                    print()
+                    print('ERROR: You must roll all the dice.')
+                    print()
                     continue
                 holdIndexes = [int(x)-1 for x in command[1:]]
                 game.rollDice(holdIndexes)
@@ -431,25 +431,25 @@ if __name__ == "__main__" :
                 game.scoreYatesee()
                 
             else :
-                print
-                print "ERROR: Unknown Command: ", command
-                print
+                print()
+                print("ERROR: Unknown Command: ", command)
+                print()
         except YateseeError as e:
-            print
-            print 'ERROR:', e.msg            
-            print
+            print()
+            print('ERROR:', e.msg)
+            print()
             
         except Exception :
             exc_type, exc_value, exc_traceback = sys.exc_info()
-            print
-            print "Unknown ERROR:"
+            print()
+            print("Unknown ERROR:")
             traceback.print_exception(exc_type, exc_value, exc_traceback,
                               limit=2, file=sys.stdout)
-            print
+            print()
             
     
-    print
-    print 
+    print()
+    print() 
     printScore(game.score)
-    print
-    print "Game Over Dude"
+    print()
+    print("Game Over Dude")
