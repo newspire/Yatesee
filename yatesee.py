@@ -368,7 +368,7 @@ if __name__ == "__main__" :
                 print("Roll: ", game.roll, game.dice)
             
             
-            command = hinput("Enter Yatesee Command: ")
+            command = input("Enter Yatesee Command: ")
             
             command = command.lower()
             
