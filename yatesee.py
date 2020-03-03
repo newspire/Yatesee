@@ -32,53 +32,53 @@ class Die(object) :
         return self.val
     
     def __hash__(self) :
-        #print '__hash__', self.val
+        #print('__hash__', self.val)
         return hash(self.val)
     
     def __eq__(self, other):
-        #print '__eq__', self.val, other
+        #print('__eq__', self.val, other)
         if isinstance(other, Die) :
             return self.val == other.val
         return self.val == other
             
     def __lt__(self, other):
-        #print '__lt__', self.val, other
+        #print('__lt__', self.val, other)
         if isinstance(other, Die) :
             return self.val < other.val
         return self.val < other
 
     def __le__(self, other):
-        #print '__le__', self.val, other
+        #print('__le__', self.val, other)
         if isinstance(other, Die) :
             return self.val <= other.val
         return self.val <= other
 
     def __ne__(self, other):
-        #print '__ne__', self.val, other
+        #print('__ne__', self.val, other)
         if isinstance(other, Die) :
             return self.val != other.val
         return self.val != other
 
     def __gt__(self, other):
-        #print '__gt__', self.val, other
+        #print('__gt__', self.val, other)
         if isinstance(other, Die) :
             return self.val > other.val
         return self.val > other
 
     def __ge__(self, other):
-        #print '__ge__', self.val, other
+        #print('__ge__', self.val, other)
         if isinstance(other, Die) :
             return self.val >= other.val
         return self.val >= other
 
     def __and__(self, other):
-        #print '__and__', self.val, other
+        #print('__and__', self.val, other)
         if isinstance(other, Die) :
             return self.val == other.val
         return self.val & other
         
     def __rand__(self, other):
-        #print '__rand__', self.val, other
+        #print('__rand__', self.val, other)
         if isinstance(other, Die) :
             return self.val & other.val
         return self.val & other    
