@@ -20,12 +20,12 @@ def test_die_equals():
 
     assert Die(1) != Die(2)
 
-    assert Die(1).currentValue() == 1
-    assert Die(2).currentValue() == 2
-    assert Die(3).currentValue() == 3
-    assert Die(4).currentValue() == 4
-    assert Die(5).currentValue() == 5
-    assert Die(6).currentValue() == 6
+    assert Die(1).current_value() == 1
+    assert Die(2).current_value() == 2
+    assert Die(3).current_value() == 3
+    assert Die(4).current_value() == 4
+    assert Die(5).current_value() == 5
+    assert Die(6).current_value() == 6
 
 def test_die_roll():
     d = Die()

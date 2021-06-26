@@ -28,7 +28,7 @@ class Die(object) :
         self.val = randint(1,self.sides)
         return self.val
 
-    def currentValue(self) :
+    def current_value(self) :
         return self.val
 
     def __hash__(self) :
@@ -104,50 +104,50 @@ class Die(object) :
 class YateseeScore(object) :
     def __init__(self) :
         self.category = { 1:None,2:None,3:None,4:None,5:None,6:None}
-        self.categoryBonus = 0
-        self.threeOfAKind = None
-        self.fourOfAKind = None
-        self.fullHouse = None
-        self.smallStraight = None
-        self.largeStraight = None
+        self.category_bonus = 0
+        self.three_of_a_kind = None
+        self.four_of_a_kind = None
+        self.full_house = None
+        self.small_straight = None
+        self.large_straight = None
         self.chance = None
         self.yatesee = None
-        self.yateseeCount = 0
+        self.yatesee_count = 0
         self.total = 0
 
 
-    def totalScore(self) :
+    def total_score(self) :
 
         self.total = sum( filter(None, self.category.values()))
-        self.total += sum( filter(None, [self.threeOfAKind, self.fourOfAKind, self.fullHouse, self.smallStraight, self.largeStraight, self.chance, self.yatesee]))
+        self.total += sum( filter(None, [self.three_of_a_kind, self.four_of_a_kind, self.full_house, self.small_straight, self.large_straight, self.chance, self.yatesee]))
 
         return self.total
 
 
 class Yatesee() :
 
-    _smallStraights = [
+    _small_straights = [
             [1,2,3,4],
             [2,3,4,5],
             [3,4,5,6]
         ]
 
-    _largeStraights = [
+    _large_straights = [
             [1,2,3,4,5],
             [2,3,4,5,6]
         ]
 
     def __init__(self) :
-        self.newGame()
+        self.new_game()
 
-    def newGame(self) :
+    def new_game(self) :
         self.score = YateseeScore()
         self.roll = 0
         self.dice = [Die(), Die(), Die(), Die(), Die()]
 
-    def rollDice(self, holdIndexes=[]) :
+    def roll_dice(self, holdIndexes=[]) :
 
-        if self.isGameOver() :
+        if self.is_game_over() :
             raise YateseeGameOver()
 
         if self.roll >= 3 :
@@ -162,7 +162,7 @@ class Yatesee() :
 
         self.roll += 1
 
-    def scoreCategory(self, category) :
+    def score_category(self, category) :
         if not self.roll :
             raise YateseeScoreError("You must roll first.")
 
@@ -177,94 +177,94 @@ class Yatesee() :
 
         catTotal = sum(filter(None, self.score.category.values()))
         if catTotal >= 63 :
-            self.score.categoryBonus = 35
+            self.score.category_bonus = 35
 
-        return self.score.totalScore()
+        return self.score.total_score()
 
-    def scoreFullHouse(self) :
+    def score_full_house(self) :
         if not self.roll :
             raise YateseeScoreError("You must roll first.")
 
-        if self.score.fullHouse != None :
+        if self.score.full_house != None :
             raise YateseeScoreError("Full House has already been scored.")
 
-        if self._isFullHouse() :
-            self.score.fullHouse = 25
+        if self._is_full_house() :
+            self.score.full_house = 25
         else :
-            self.score.fullHouse = 0
+            self.score.full_house = 0
 
         self.roll = 0
 
-        return self.score.totalScore()
+        return self.score.total_score()
 
-    def scoreSmallStraight(self) :
+    def score_small_straight(self) :
         if not self.roll :
             raise YateseeScoreError("You must roll first.")
 
-        if self.score.smallStraight != None :
+        if self.score.small_straight != None :
             raise YateseeScoreError("Small Straight has already been scored.")
 
-        if self._isSmallStraight() :
-            self.score.smallStraight = 30
+        if self._is_small_straight() :
+            self.score.small_straight = 30
         else :
-            self.score.smallStraight = 0
+            self.score.small_straight = 0
 
         self.roll = 0
 
-        return self.score.totalScore()
+        return self.score.total_score()
 
-    def scoreLargeStraight(self) :
+    def score_large_straight(self) :
         if not self.roll :
             raise YateseeScoreError("You must roll first.")
 
-        if self.score.largeStraight != None :
+        if self.score.large_straight != None :
             raise YateseeScoreError("Large Straight has already been scored.")
 
-        if self._isLargeStraight() :
-            self.score.largeStraight = 40
+        if self._is_large_straight() :
+            self.score.large_straight = 40
         else :
-            self.score.largeStraight = 0
+            self.score.large_straight = 0
 
         self.roll = 0
 
-        return self.score.totalScore()
+        return self.score.total_score()
 
-    def scoreThreeOfAKind(self) :
+    def score_three_of_a_kind(self) :
         if not self.roll :
             raise YateseeScoreError("You must roll first.")
 
-        if self.score.threeOfAKind != None :
+        if self.score.three_of_a_kind != None :
             raise YateseeScoreError("Three of a kind has already been scored.")
 
         for kind in range(1,7) :
-            if self._isKind(kind, 3) :
-                self.score.threeOfAKind = sum(self.dice)
+            if self._is_kind(kind, 3) :
+                self.score.three_of_a_kind = sum(self.dice)
                 break
-            self.score.threeOfAKind = 0
+            self.score.three_of_a_kind = 0
 
         self.roll = 0
 
-        return self.score.totalScore()
+        return self.score.total_score()
 
-    def scoreFourOfAKind(self) :
+    def score_four_of_a_kind(self) :
         if not self.roll :
             raise YateseeScoreError("You must roll first.")
 
-        if self.score.fourOfAKind != None :
+        if self.score.four_of_a_kind != None :
             raise YateseeScoreError("Four of a kind has already been scored.")
 
         for kind in range(1,7) :
-            if self._isKind(kind, 4) :
-                self.score.fourOfAKind = sum(self.dice)
+            if self._is_kind(kind, 4) :
+                self.score.four_of_a_kind = sum(self.dice)
                 break
-            self.score.fourOfAKind = 0
+            self.score.four_of_a_kind = 0
 
         self.roll = 0
 
-        return self.score.totalScore()
+        return self.score.total_score()
 
 
-    def scoreChance(self) :
+    def score_chance(self) :
         if not self.roll :
             raise YateseeScoreError("You must roll first.")
 
@@ -275,9 +275,9 @@ class Yatesee() :
 
         self.roll = 0
 
-        return self.score.totalScore()
+        return self.score.total_score()
 
-    def scoreYatesee(self) :
+    def score_yatesee(self) :
         if not self.roll :
             raise YateseeScoreError("You must roll first.")
 
@@ -285,20 +285,20 @@ class Yatesee() :
             raise YateseeScoreError("Yatesee has already been scored.")
 
         for kind in range(1,7) :
-            if self._isKind(kind, 5) :
-                self.score.yateseeCount += 1
+            if self._is_kind(kind, 5) :
+                self.score.yatesee_count += 1
                 break
 
-        if self.score.yateseeCount > 0 :   # 50 for first Yatesee + 100 for each additional Yatesee
-            self.score.yatesee = 50 + ((self.score.yateseeCount - 1) * 100)
+        if self.score.yatesee_count > 0 :   # 50 for first Yatesee + 100 for each additional Yatesee
+            self.score.yatesee = 50 + ((self.score.yatesee_count - 1) * 100)
         else :
             self.score.yatesee = 0
 
         self.roll = 0
 
-        return self.score.totalScore()
+        return self.score.total_score()
 
-    def isGameOver(self) :
+    def is_game_over(self) :
         if None in self.score.category.values() :
             return False
 
@@ -307,48 +307,48 @@ class Yatesee() :
 
         return True
 
-    def _isKind(self, value, count) :
+    def _is_kind(self, value, count) :
         if self.dice.count(value) >= count :
             return True
 
         return False
 
 
-    def _isFullHouse(self) :
+    def _is_full_house(self) :
         for tre in range(1,7) :
-            if self._isKind(tre, 3) :
+            if self._is_kind(tre, 3) :
                 for duce in range(1,7) :
                     if duce == tre :
                         continue
-                    if self._isKind(duce, 2) :
+                    if self._is_kind(duce, 2) :
                         return True
 
         return False
 
-    def _isStraight(self, straights) :
+    def _is_straight(self, straights) :
         for s in straights :
             if len(set(s) & set(self.dice)) == len(s) :
                 return True
 
         return False
 
-    def _isLargeStraight(self) :
-        return self._isStraight(Yatesee._largeStraights)
+    def _is_large_straight(self) :
+        return self._is_straight(Yatesee._large_straights)
 
-    def _isSmallStraight(self) :
-        return self._isStraight(Yatesee._smallStraights)
+    def _is_small_straight(self) :
+        return self._is_straight(Yatesee._small_straights)
 
 if __name__ == "__main__" :
     import sys, traceback
 
-    def printScore(score) :
+    def print_score(score) :
         print(score.category)
-        print('Bonus:          ', score.categoryBonus)
-        print('Three of a kind:', score.threeOfAKind)
-        print('Four of a kind: ', score.fourOfAKind)
-        print('Full House:     ', score.fullHouse)
-        print('Small Straight: ', score.smallStraight)
-        print('Large Straight: ', score.largeStraight)
+        print('Bonus:          ', score.category_bonus)
+        print('Three of a kind:', score.three_of_a_kind)
+        print('Four of a kind: ', score.four_of_a_kind)
+        print('Full House:     ', score.full_house)
+        print('Small Straight: ', score.small_straight)
+        print('Large Straight: ', score.large_straight)
         print('Chance:         ', score.chance)
         print('Yatesee:        ', score.yatesee)
         print('Total:          ', score.total)
@@ -359,10 +359,10 @@ if __name__ == "__main__" :
     print()
     game = Yatesee()
 
-    while not game.isGameOver() :
+    while not game.is_game_over() :
         try:
             if game.roll == 0 :
-                printScore(game.score)
+                print_score(game.score)
             else :
                 print()
                 print("Roll: ", game.roll, game.dice)
@@ -395,7 +395,7 @@ if __name__ == "__main__" :
                 quit()
 
             elif command == 'r' or command == 'roll' :
-                game.rollDice()
+                game.roll_dice()
 
             elif command[0] == 'r' :
                 if game.roll == 0 :
@@ -404,31 +404,31 @@ if __name__ == "__main__" :
                     print()
                     continue
                 holdIndexes = [int(x)-1 for x in command[1:]]
-                game.rollDice(holdIndexes)
+                game.roll_dice(holdIndexes)
 
             elif command in ('1','2','3','4','5','6') :
-                game.scoreCategory(int(command))
+                game.score_category(int(command))
 
             elif command == 't' :
-                game.scoreThreeOfAKind()
+                game.score_three_of_a_kind()
 
             elif command == 'f' :
-                game.scoreFourOfAKind()
+                game.score_four_of_a_kind()
 
             elif command == 'h' :
-                game.scoreFullHouse()
+                game.score_full_house()
 
             elif command == 's' :
-                game.scoreSmallStraight()
+                game.score_small_straight()
 
             elif command == 'l' :
-                game.scoreLargeStraight()
+                game.score_large_straight()
 
             elif command == 'c' :
-                game.scoreChance()
+                game.score_chance()
 
             elif command == 'y' :
-                game.scoreYatesee()
+                game.score_yatesee()
 
             else :
                 print()
@@ -450,6 +450,6 @@ if __name__ == "__main__" :
 
     print()
     print()
-    printScore(game.score)
+    print_score(game.score)
     print()
     print("Game Over Dude")

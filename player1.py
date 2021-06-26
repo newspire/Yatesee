@@ -3,31 +3,31 @@
 #The rules mirror my own general play patterns
 from yatesee import Yatesee
 
-smallStraights = [
+small_straights = [
 		[1,2,3,4],
 		[2,3,4,5],
 		[3,4,5,6]
 	]
 
-largeStraights = [
+large_straights = [
 		[1,2,3,4,5],
 		[2,3,4,5,6]
 	]
 
 
 
-def isYatesee(dice) :
+def is_yatesee(dice) :
     for x in range(1,7) :
         if dice.count(x) == 5 :
             return True
 
     return False
 
-def isPossibleStraight(dice) :
+def is_possible_straight(dice) :
     results = []
-    for s in smallStraights :
+    for s in small_straights :
         results.append( list(set(s) & set(dice)) )
-    for s in largeStraights :
+    for s in large_straights :
         results.append( list(set(s) & set(dice)) )
 
     best_match = []
@@ -39,14 +39,14 @@ def isPossibleStraight(dice) :
 
     return best_match
 
-def isStraight(dice, straights) :
+def is_straight(dice, straights) :
         for s in straights :
             if len(set(s) & set(dice)) == len(s) :
                 return True
 
         return False
 
-def isFullHouse(dice) :
+def is_full_house(dice) :
     for tre in range(1,7) :
         if dice.count(tre) == 3 :
             for duce in range(1, 7) :
@@ -59,43 +59,43 @@ def isFullHouse(dice) :
 
 game = Yatesee()
 
-while not game.isGameOver() :
+while not game.is_game_over() :
     print(game.score.__dict__)
-    game.rollDice()
+    game.roll_dice()
     print(game.roll, game.dice)
 
-    if isYatesee(game.dice) :
-        game.scoreYatesee()
+    if is_yatesee(game.dice) :
+        game.score_yatesee()
         continue
 
-    if game.score.largeStraight == None :
-        if isStraight(game.dice, largeStraights) :
-            game.scoreLargeStraight()
+    if game.score.large_straight == None :
+        if is_straight(game.dice, large_straights) :
+            game.score_large_straight()
             continue
 
-    if game.score.smallStraight == None :
-        if isStraight(game.dice, smallStraights) :
-            game.scoreSmallStraight()
+    if game.score.small_straight == None :
+        if is_straight(game.dice, small_straights) :
+            game.score_small_straight()
             continue
 
-    if game.score.fullHouse == None :
-        if isFullHouse(game.dice) :
-            game.scoreFullHouse()
+    if game.score.full_house == None :
+        if is_full_house(game.dice) :
+            game.score_full_house()
             continue
 
-    if game.score.fourOfAKind == None :
+    if game.score.four_of_a_kind == None :
         for cat in range(1, 7) :
             if game.dice.count(cat) >= 4 :
-                game.scoreFourOfAKind()
+                game.score_four_of_a_kind()
                 break
 
     if game.roll == 0 :
         continue
 
-    if game.score.threeOfAKind == None :
+    if game.score.three_of_a_kind == None :
         for cat in range(1, 7) :
             if game.dice.count(cat) >= 3 :
-                game.scoreThreeOfAKind()
+                game.score_three_of_a_kind()
                 break
 
     if game.roll == 0 :
@@ -104,7 +104,7 @@ while not game.isGameOver() :
     for cat in range(1, 7) :
         if game.score.category[cat] == None :
             if game.dice.count(cat) >= 3:
-                game.scoreCategory(cat)
+                game.score_category(cat)
                 break
 
     if game.roll == 0 :     #We must have scored a category
@@ -118,38 +118,38 @@ while not game.isGameOver() :
             for cat in range(1, 7) :
                 if game.score.category[cat] == None :
                     if game.dice.count(cat) >= cnt:
-                        game.scoreCategory(cat)
+                        game.score_category(cat)
                         break
 
         if game.roll == 0 :
             continue
 
         if game.score.chance == None :
-            game.scoreChance()
+            game.score_chance()
             continue
 
-        if game.score.threeOfAKind == None :
-            game.scoreThreeOfAKind()
+        if game.score.three_of_a_kind == None :
+            game.score_three_of_a_kind()
             continue
 
-        if game.score.fourOfAKind == None :
-            game.scoreFourOfAKind()
+        if game.score.four_of_a_kind == None :
+            game.score_four_of_a_kind()
             continue
 
-        if game.score.fullHouse == None :
-            game.scoreFullHouse()
+        if game.score.full_house == None :
+            game.score_full_house()
             continue
 
-        if game.score.smallStraight == None :
-            game.scoreSmallStraight()
+        if game.score.small_straight == None :
+            game.score_small_straight()
             continue
 
-        if game.score.largeStraight == None :
-            game.scoreLargeStraight()
+        if game.score.large_straight == None :
+            game.score_large_straight()
             continue
 
         if game.score.yatesee == None :
-            game.scoreYatesee()
+            game.score_yatesee()
             continue
 
 print()
