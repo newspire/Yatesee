@@ -20,3 +20,10 @@ client_secret={clientSecret}&
 redirect_uri=https%3A%2F%2Foidcdebugger.com%2Fdebug
 
 Copy the id_token to the Bearer token in the New Game call.
+
+
+Design Notes:
+Lambda vs Lambda Proxy
+https://medium.com/@lakshmanLD/lambda-proxy-vs-lambda-integration-in-aws-api-gateway-3a9397af0e6d
+Used Lambda Proxy
+
